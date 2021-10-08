@@ -1,7 +1,12 @@
 body {
-  background-color: blueviolet;
-}
-
-h1 {
-  color: coral;
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(192, 181, 218, 1) 51%,
+    rgba(190, 181, 219, 1) 53%,
+    rgba(189, 181, 219, 1) 54%,
+    rgba(187, 182, 220, 1) 57%,
+    rgba(148, 187, 233, 1) 100%
+  );
 }
