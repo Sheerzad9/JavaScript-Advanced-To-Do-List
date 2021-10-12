@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background: rgb(238, 174, 202);
   background: radial-gradient(
@@ -10,8 +14,7 @@ body {
     rgba(148, 187, 233, 1) 100%
   );
 }
-.container{
-  box-sizing: border-box;
+.container {
   text-align: center;
   margin-top: 300px;
 }
@@ -19,18 +22,83 @@ body {
 .testButton {
   font-family: verdana;
   font-weight: bold;
-  color: #14396A !important;
+  color: #14396a !important;
   font-size: 14px;
-  text-shadow: 1px 1px 0px #7CACDE;
-  box-shadow: 1px 1px 1px #96B2C4;
+  text-shadow: 1px 1px 0px #7cacde;
+  box-shadow: 1px 1px 1px #96b2c4;
   padding: 10px 25px;
   border-radius: 10px;
-  border: 2px solid #3866A3;
-  background: #63B8EE;
-  background: linear-gradient(to top, #63B8EE, #468CCF);
+  border: 2px solid #3866a3;
+  background: #63b8ee;
+  background: linear-gradient(to top, #63b8ee, #468ccf);
+  transition: 1s;
 }
 .testButton:hover {
-  color: #14396A !important;
-  background: #468CCF;
-  background: linear-gradient(to top, #468CCF, #63B8EE);
+  color: white !important;
+  background: #468ccf;
+  background: linear-gradient(to top, #468ccf, #63b8ee);
+  box-shadow: 3px 3px grey;
+  font-size: 18px;
+  transition: 1s;
+}
+
+.header {
+  margin-top: 100px;
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+  word-spacing: 5px;
+}
+
+.input {
+  margin-top: 50px;
+  border: none;
+  border-radius: 0;
+  width: 40%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+  margin-left: 300px;
+}
+
+.addBtn {
+  margin-top: 50px;
+  text-align: center;
+  padding: 10px;
+  width: 25%;
+  float: left;
+  background: #d9d9d9;
+  color: #555;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+
+.addBtn:hover {
+  background-color: rgb(78, 78, 67);
+  color: white;
+  transition: 1s;
+}
+.loader {
+  margin-bottom: 20px;
+  margin-left: 45%;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #bbb6dc; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  opacity: 0;
+  transition: 5s;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
