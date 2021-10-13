@@ -2,6 +2,32 @@ const container = document.querySelector(".container");
 const startBtn = document.querySelector(".testButton");
 const loader = document.querySelector(".loader");
 
+const kuukaudet = [
+  "tammikuuta",
+  "helmikuuta",
+  "maaliskuuta",
+  "huhtikuuta",
+  "toukokuuta",
+  "kesäkuuta",
+  "heinäkuuta",
+  "elokuuta",
+  "syyskuuta",
+  "lokakuuta",
+  "marraskuuta",
+  "joulukuuta",
+];
+
+const viikonPaivat = [
+  "maanantai",
+  "tiistai",
+  "keskiviikko",
+  "torstai",
+  "perjantai",
+  "lauantai",
+  "sunnuntai",
+];
+// console.log(kuukaudet[current_date.getMonth()]);
+
 startBtn.addEventListener("click", function () {
   startBtn.style.display = "none";
   loader.style.opacity = "1";
@@ -52,12 +78,23 @@ const createNewContent = function () {
 document.addEventListener("click", addFunc);
 
 function addFunc(e) {
-  let numbers = /^\d+$/;
   if (e.target.className === "addBtn") {
     const inputti = document.querySelector(".input");
     const ulContainer = document.querySelector(".ulContainer");
+
     if (inputti.value.length > 2 && inputti.value.match(/^[0-9]+$/) === null) {
-      const markup = `<li>${inputti.value}</li>`;
+      const currentDate = new Date();
+      const markup = `<li><h4>${
+        inputti.value
+      }</h4> <br> <p class = "time"> lisätty: ${
+        viikonPaivat[currentDate.getDay()]
+      }, ${currentDate.getDate()}.${
+        kuukaudet[currentDate.getMonth()]
+      }.${currentDate.getFullYear()} <br> klo: ${currentDate.getHours()}.${
+        currentDate.getMinutes().length === 1
+          ? "0" + currentDate.getMinutes()
+          : currentDate.getMinutes()
+      } </p> </li>`;
 
       ulContainer.insertAdjacentHTML("afterbegin", markup);
     }

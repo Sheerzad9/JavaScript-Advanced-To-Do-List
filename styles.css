@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+h4 {
+  margin: 0;
+  font-size: 28px;
+}
 body {
   background: rgb(238, 174, 202);
   background: radial-gradient(
@@ -123,4 +127,9 @@ ul li {
   padding: 10px;
   font-size: 20px;
   border-bottom-style: groove;
+}
+
+.time {
+  margin: 0;
+  font-size: 14px;
 }
