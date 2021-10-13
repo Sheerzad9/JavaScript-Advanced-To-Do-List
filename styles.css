@@ -43,7 +43,8 @@ body {
 }
 
 .header {
-  margin-top: 100px;
+  background-color: #63b8ee;
+  margin-top: 70px;
   text-align: center;
   font-family: "Times New Roman", Times, serif;
   font-size: 20px;
@@ -51,22 +52,25 @@ body {
 }
 
 .input {
-  margin-top: 50px;
+  margin-top: 30px;
   border: none;
   border-radius: 0;
   width: 40%;
   padding: 10px;
-  float: left;
+  /* float: left; */
   font-size: 16px;
-  margin-left: 300px;
+  margin-left: 2.5%;
 }
 
 .addBtn {
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: center;
-  padding: 10px;
-  width: 25%;
-  float: left;
+  padding-left: 60px;
+  padding-top: 10px;
+  padding-right: 60px;
+  padding-bottom: 11px;
+  /* width: 50%; */
+  /* float: left; */
   background: #d9d9d9;
   color: #555;
   text-align: center;
@@ -101,4 +105,22 @@ body {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.ulContainer {
+  padding: 0;
+  margin-left: 27.3%;
+  margin-right: 24.9%;
+  height: auto;
+  background-color: grey;
+  text-align: center;
+  list-style-type: none;
+}
+ul li {
+  text-align: left;
+  /* float: left; */
+  /* padding: 10px; */
+  padding: 10px;
+  font-size: 20px;
+  border-bottom-style: groove;
 }
