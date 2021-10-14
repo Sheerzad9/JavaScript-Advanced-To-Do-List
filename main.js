@@ -73,6 +73,10 @@ const createNewContent = function () {
   ulContainer.appendChild(testli);
   console.log(ulContainer);
   newDiv.insertAdjacentElement("afterend", ulContainer);
+  if (localStorage !== null) {
+    const lista = localStorage.getItem("lista");
+    ulContainer.insertAdjacentHTML("afterbegin", lista);
+  }
 };
 
 document.addEventListener("click", addFunc);
@@ -97,6 +101,7 @@ function addFunc(e) {
       } </p> </li>`;
 
       ulContainer.insertAdjacentHTML("afterbegin", markup);
+      localStorage.setItem("lista", markup);
     }
     if (inputti.value.length <= 2) {
       alert("Too short, should contain more than 2 letters");
