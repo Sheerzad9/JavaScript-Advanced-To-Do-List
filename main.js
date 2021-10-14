@@ -1,31 +1,35 @@
 const container = document.querySelector(".container");
 const startBtn = document.querySelector(".testButton");
 const loader = document.querySelector(".loader");
+let addBtn;
 
-const kuukaudet = [
-  "tammikuuta",
-  "helmikuuta",
-  "maaliskuuta",
-  "huhtikuuta",
-  "toukokuuta",
-  "kesäkuuta",
-  "heinäkuuta",
-  "elokuuta",
-  "syyskuuta",
-  "lokakuuta",
-  "marraskuuta",
-  "joulukuuta",
-];
+const data = {
+  kuukaudet: [
+    "tammikuuta",
+    "helmikuuta",
+    "maaliskuuta",
+    "huhtikuuta",
+    "toukokuuta",
+    "kesäkuuta",
+    "heinäkuuta",
+    "elokuuta",
+    "syyskuuta",
+    "lokakuuta",
+    "marraskuuta",
+    "joulukuuta",
+  ],
+  viikonPaivat: [
+    "maanantai",
+    "tiistai",
+    "keskiviikko",
+    "torstai",
+    "perjantai",
+    "lauantai",
+    "sunnuntai",
+  ],
+  listElements: [],
+};
 
-const viikonPaivat = [
-  "maanantai",
-  "tiistai",
-  "keskiviikko",
-  "torstai",
-  "perjantai",
-  "lauantai",
-  "sunnuntai",
-];
 // console.log(kuukaudet[current_date.getMonth()]);
 
 startBtn.addEventListener("click", function () {
@@ -34,9 +38,8 @@ startBtn.addEventListener("click", function () {
   setTimeout("createNewContent()", 3000);
 });
 
-let addBtn;
-
 const createNewContent = function () {
+  console.log(data.listElements);
   // container.innerHTML = "";
   container.remove();
   // Creating the header
@@ -73,10 +76,13 @@ const createNewContent = function () {
   ulContainer.appendChild(testli);
   console.log(ulContainer);
   newDiv.insertAdjacentElement("afterend", ulContainer);
-  if (localStorage !== null) {
+  if (localStorage.getItem("lista") !== null) {
     const lista = localStorage.getItem("lista");
+    console.log(lista);
     ulContainer.insertAdjacentHTML("afterbegin", lista);
   }
+  // var myNodelist = document.getElementsByTagName("li");
+  // console.log(myNodelist);
 };
 
 document.addEventListener("click", addFunc);
@@ -91,9 +97,9 @@ function addFunc(e) {
       const markup = `<li><h4>${
         inputti.value
       }</h4> <br> <p class = "time"> lisätty: ${
-        viikonPaivat[currentDate.getDay()]
+        data.viikonPaivat[currentDate.getDay()]
       }, ${currentDate.getDate()}.${
-        kuukaudet[currentDate.getMonth()]
+        data.kuukaudet[currentDate.getMonth()]
       }.${currentDate.getFullYear()} <br> klo: ${currentDate.getHours()}.${
         currentDate.getMinutes().length === 1
           ? "0" + currentDate.getMinutes()
@@ -101,14 +107,14 @@ function addFunc(e) {
       } </p> </li>`;
 
       ulContainer.insertAdjacentHTML("afterbegin", markup);
-      localStorage.setItem("lista", markup);
+      data.listElements.push(markup);
+      localStorage.setItem("lista", data.listElements);
     }
     if (inputti.value.length <= 2) {
       alert("Too short, should contain more than 2 letters");
     }
     if (inputti.value.match(/^[0-9]+$/) != null)
       alert(`You can't insert only numbers!`);
+    inputti.value = "";
   }
 }
-
-console.log(typeof 0220);
