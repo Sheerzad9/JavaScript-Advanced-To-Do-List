@@ -35,10 +35,10 @@ const data = {
 startBtn.addEventListener("click", function () {
   startBtn.style.display = "none";
   loader.style.opacity = "1";
-  setTimeout("createNewContent()", 3000);
+  setTimeout("init()", 3000);
 });
 
-const createNewContent = function () {
+const init = function () {
   // container.innerHTML = "";
   container.remove();
   // Creating the header
@@ -75,30 +75,55 @@ const createNewContent = function () {
   ulContainer.appendChild(testli);
   console.log(ulContainer);
   newDiv.insertAdjacentElement("afterend", ulContainer);
+  // Getting list items from local storage
   if (localStorage.getItem("lista") !== null) {
     const lista = localStorage.getItem("lista");
-    console.log(lista);
     const listatArr = lista.split(",");
     data.listElements.push(lista);
     console.log(listatArr);
-    ulContainer.insertAdjacentHTML("afterbegin", lista);
+    // Inserting the list items to the parent ul element
+    listatArr.forEach((el) => {
+      ulContainer.insertAdjacentHTML("afterbegin", el);
+    });
   }
   // var myNodelist = document.getElementsByTagName("li");
   // console.log(myNodelist);
 };
 
+// Creating the voice function
+const speak = function (msg) {
+  const sp = new SpeechSynthesisUtterance(msg);
+  speechSynthesis.speak(sp);
+};
+
 document.addEventListener("click", addFunc);
 
 function addFunc(e) {
+  // If user clicks voice button
+  if (e.target.className === "fa") {
+    // Taking the parentElement up
+    const x = e.target.parentElement.innerText;
+    // Splitting it so we can get the "h4" innerText to arr
+    const parsattu = x.split("\n");
+    speak(parsattu[1]);
+  }
+
+  // Creating checked mark
+  if (e.target.tagName === "H4") {
+    console.log(e.target.classList);
+    e.target.classList.toggle("checkOver");
+  }
+
+  // If user adds something
   if (e.target.className === "addBtn") {
     const inputti = document.querySelector(".input");
     const ulContainer = document.querySelector(".ulContainer");
 
     if (inputti.value.length > 2 && inputti.value.match(/^[0-9]+$/) === null) {
       const currentDate = new Date();
-      const markup = `<li><span class="close">x</span> <h4>${
+      const markup = `<li></i> <span class="close">x</span> <h4 class="textValue">${
         inputti.value
-      }</h4> <br> <p class = "time"> lisätty: ${
+      }</h4><br><i style="font-size:24px" class="fa">&#xf028;</i> <p class = "time"> lisätty: ${
         data.viikonPaivat[currentDate.getDay()]
       }. ${currentDate.getDate()}.${
         data.kuukaudet[currentDate.getMonth()]
@@ -121,8 +146,6 @@ function addFunc(e) {
     inputti.value = "";
   }
 }
-
-const deleteFunc = function () {};
 
 const reset = function () {
   localStorage.removeItem("lista");
