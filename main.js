@@ -39,7 +39,6 @@ startBtn.addEventListener("click", function () {
 });
 
 const createNewContent = function () {
-  console.log(data.listElements);
   // container.innerHTML = "";
   container.remove();
   // Creating the header
@@ -79,6 +78,9 @@ const createNewContent = function () {
   if (localStorage.getItem("lista") !== null) {
     const lista = localStorage.getItem("lista");
     console.log(lista);
+    const listatArr = lista.split(",");
+    data.listElements.push(lista);
+    console.log(listatArr);
     ulContainer.insertAdjacentHTML("afterbegin", lista);
   }
   // var myNodelist = document.getElementsByTagName("li");
@@ -94,17 +96,18 @@ function addFunc(e) {
 
     if (inputti.value.length > 2 && inputti.value.match(/^[0-9]+$/) === null) {
       const currentDate = new Date();
-      const markup = `<li><h4>${
+      const markup = `<li><span class="close">x</span> <h4>${
         inputti.value
       }</h4> <br> <p class = "time"> lisätty: ${
         data.viikonPaivat[currentDate.getDay()]
-      }, ${currentDate.getDate()}.${
+      }. ${currentDate.getDate()}.${
         data.kuukaudet[currentDate.getMonth()]
       }.${currentDate.getFullYear()} <br> klo: ${currentDate.getHours()}.${
         currentDate.getMinutes().length === 1
           ? "0" + currentDate.getMinutes()
           : currentDate.getMinutes()
-      } </p> </li>`;
+      } </p>
+       </li>`;
 
       ulContainer.insertAdjacentHTML("afterbegin", markup);
       data.listElements.push(markup);
@@ -118,3 +121,9 @@ function addFunc(e) {
     inputti.value = "";
   }
 }
+
+const deleteFunc = function () {};
+
+const reset = function () {
+  localStorage.removeItem("lista");
+};

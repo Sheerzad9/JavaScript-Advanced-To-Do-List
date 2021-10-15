@@ -133,3 +133,11 @@ ul li {
   margin: 0;
   font-size: 14px;
 }
+
+.close {
+  float: right;
+  padding: 5px 12px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+}
