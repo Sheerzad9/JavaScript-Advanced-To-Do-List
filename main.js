@@ -69,7 +69,7 @@ const init = function () {
   const ulContainer = document.createElement("ul");
   ulContainer.className = "ulContainer";
 
-  const testli = document.createElement("li");
+  const testli = document.createElement("span");
   testli.innerHTML = "Go to cabin";
 
   ulContainer.appendChild(testli);
@@ -79,7 +79,7 @@ const init = function () {
   if (localStorage.getItem("lista") !== null) {
     const lista = localStorage.getItem("lista");
     const listatArr = lista.split(",");
-    data.listElements.push(lista);
+    // data.listElements.push(lista);
     console.log(listatArr);
     // Inserting the list items to the parent ul element
     listatArr.forEach((el) => {
@@ -88,6 +88,11 @@ const init = function () {
   }
   // var myNodelist = document.getElementsByTagName("li");
   // console.log(myNodelist);
+};
+
+// Delete parent element function
+const deleteParent = function (el) {
+  el.parentElement.remove();
 };
 
 // Creating the voice function
@@ -108,10 +113,18 @@ function addFunc(e) {
     speak(parsattu[1]);
   }
 
+  // Deleting
+  if (e.target.className === "close") {
+    deleteParent(e.target);
+    // reset()
+    updateLocalStorage();
+  }
+
   // Creating checked mark
   if (e.target.tagName === "H4") {
     console.log(e.target.classList);
     e.target.classList.toggle("checkOver");
+    updateLocalStorage();
   }
 
   // If user adds something
@@ -121,7 +134,7 @@ function addFunc(e) {
 
     if (inputti.value.length > 2 && inputti.value.match(/^[0-9]+$/) === null) {
       const currentDate = new Date();
-      const markup = `<li></i> <span class="close">x</span> <h4 class="textValue">${
+      const markup = `<li></i> <span class="close">x</span> <h4>${
         inputti.value
       }</h4><br><i style="font-size:24px" class="fa">&#xf028;</i> <p class = "time"> lisätty: ${
         data.viikonPaivat[currentDate.getDay()]
@@ -135,8 +148,7 @@ function addFunc(e) {
        </li>`;
 
       ulContainer.insertAdjacentHTML("afterbegin", markup);
-      data.listElements.push(markup);
-      localStorage.setItem("lista", data.listElements);
+      updateLocalStorage();
     }
     if (inputti.value.length <= 2) {
       alert("Too short, should contain more than 2 letters");
@@ -147,6 +159,20 @@ function addFunc(e) {
   }
 }
 
-const reset = function () {
+const clearLocalStorage = function () {
   localStorage.removeItem("lista");
 };
+
+const updateLocalStorage = function () {
+  clearLocalStorage();
+  const ulContainer = document.querySelector(".ulContainer");
+  const items = ulContainer.getElementsByTagName("li");
+  if (data.listElements.length > 0) data.listElements = [];
+  for (var i = 0; i < items.length; ++i) {
+    data.listElements.push(items[i].outerHTML);
+  }
+  localStorage.setItem("lista", data.listElements);
+  console.log(data.listElements);
+};
+
+// data.listElements.push(items[i]);
