@@ -61,7 +61,6 @@ const init = function () {
   addBtn.appendChild(spanText);
   addBtn.className = "addBtn";
   newDiv.appendChild(addBtn);
-  console.log(newDiv);
   // Adding new element
   document.body.appendChild(newDiv);
 
@@ -69,18 +68,22 @@ const init = function () {
   const ulContainer = document.createElement("ul");
   ulContainer.className = "ulContainer";
 
-  const testli = document.createElement("span");
-  testli.innerHTML = "Go to cabin";
+  const spanni1 = document.createElement("span");
+  spanni1.innerHTML = "Check All";
+  spanni1.className = "checkAllSpan";
 
-  ulContainer.appendChild(testli);
-  console.log(ulContainer);
+  const spanni2 = document.createElement("span");
+  spanni2.innerHTML = "Remove All";
+  spanni2.className = "removeAllSpan";
+
+  ulContainer.appendChild(spanni1);
+  ulContainer.appendChild(spanni2);
   newDiv.insertAdjacentElement("afterend", ulContainer);
   // Getting list items from local storage
   if (localStorage.getItem("lista") !== null) {
     const lista = localStorage.getItem("lista");
     const listatArr = lista.split(",");
     // data.listElements.push(lista);
-    console.log(listatArr);
     // Inserting the list items to the parent ul element
     listatArr.forEach((el) => {
       ulContainer.insertAdjacentHTML("afterbegin", el);
@@ -110,6 +113,8 @@ function addFunc(e) {
     const x = e.target.parentElement.innerText;
     // Splitting it so we can get the "h4" innerText to arr
     const parsattu = x.split("\n");
+    console.log(x);
+    console.log(parsattu);
     speak(parsattu[1]);
   }
 

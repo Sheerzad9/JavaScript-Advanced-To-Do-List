@@ -156,3 +156,36 @@ ul li {
 .checkOver {
   text-decoration: line-through;
 }
+
+.checkAllSpan {
+  height: auto;
+  padding: 10px;
+  margin: 10px;
+  font-size: 20px;
+  word-spacing: 3px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.checkAllSpan:hover {
+  color: white;
+  word-spacing: 5px;
+  letter-spacing: 3px;
+  transition: 1s;
+}
+
+.removeAllSpan {
+  padding: 10px;
+  margin: 10px;
+  font-size: 20px;
+  word-spacing: 3px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.removeAllSpan:hover {
+  color: white;
+  word-spacing: 5px;
+  letter-spacing: 3px;
+  transition: 1s;
+}
