@@ -3,6 +3,7 @@ const startBtn = document.querySelector(".testButton");
 const loader = document.querySelector(".loader");
 let addBtn;
 
+// Some hard coded data that we need for apps functionality
 const data = {
   kuukaudet: [
     "tammikuuta",
@@ -30,14 +31,13 @@ const data = {
   listElements: [],
 };
 
-// console.log(kuukaudet[current_date.getMonth()]);
-
 startBtn.addEventListener("click", function () {
   startBtn.style.display = "none";
   loader.style.opacity = "1";
   setTimeout("updatePage()", 3000);
 });
 
+// As the name says, this function clears previous Dom content and fills it up with new
 const updatePage = function () {
   container.remove();
   // Creating the header
@@ -67,31 +67,36 @@ const updatePage = function () {
   const ulContainer = document.createElement("ul");
   ulContainer.className = "ulContainer";
 
-  // Check all span
+  // Creating "Check all" span
   const spanni1 = document.createElement("span");
   spanni1.innerHTML = "Check All";
   spanni1.className = "checkAllSpan";
 
-  // Remove checked ones
+  // Creating "Uncheck all" span
   const spanni2 = document.createElement("span");
-  spanni2.innerHTML = "Remove Checked Ones";
-  spanni2.className = "removeAllSpan";
+  spanni2.innerHTML = "Uncheck All";
+  spanni2.className = "uncheckAllSpan";
+
+  // Creating "Delete all" span
+  const spanni3 = document.createElement("span");
+  spanni3.innerHTML = "Delete all";
+  spanni3.className = "deleteAllSpan";
 
   ulContainer.appendChild(spanni1);
   ulContainer.appendChild(spanni2);
+  ulContainer.appendChild(spanni3);
   newDiv.insertAdjacentElement("afterend", ulContainer);
-  // Getting list items from local storage
+
+  // Getting list items from local storage if there is any
   if (localStorage.getItem("lista") !== null) {
     const lista = localStorage.getItem("lista");
     const listatArr = lista.split(",");
-    // data.listElements.push(lista);
-    // Inserting the list items to the parent ul element
+    // reversing our array so it will print in correct order, because we are using "afterbegin" in "insertAdjacentHTML" function.
+    listatArr.reverse();
     listatArr.forEach((el) => {
       ulContainer.insertAdjacentHTML("afterbegin", el);
     });
   }
-  // var myNodelist = document.getElementsByTagName("li");
-  // console.log(myNodelist);
 };
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -104,10 +109,9 @@ function addFunc(e) {
   if (e.target.className === "fa") {
     // Taking the parentElement up
     const x = e.target.parentElement.innerText;
-    // Splitting it so we can get the "h4" innerText to arr
+    // Splitting it so we can get the "h4" innerText to our array
     const parsattu = x.split("\n");
-    console.log(x);
-    console.log(parsattu);
+    // Calling our speak function with the data we want it to say loud, in this case only the h4 innerHTML
     speak(parsattu[1]);
   }
 
@@ -128,14 +132,21 @@ function addFunc(e) {
     checkInput();
   }
 
+  // User clicking check all span
   if (e.target.className === "checkAllSpan") {
     addingCheckMarks();
     updateLocalStorage();
   }
 
-  if (e.target.className === "removeAllSpan") {
+  // User clicking uncheck all span
+  if (e.target.className === "uncheckAllSpan") {
     removingCheckMarks();
     updateLocalStorage();
+  }
+
+  // User clicking delete all span
+  if (e.target.className === "deleteAllSpan") {
+    deleteAll();
   }
 }
 
@@ -192,6 +203,19 @@ const removingCheckMarks = function () {
   }
 };
 
+// Delete all list items
+const deleteAll = function () {
+  const ulContainer = document.querySelector(".ulContainer");
+  // Changing HTMLCollection to an array
+  const items = [].slice.call(ulContainer.getElementsByTagName("li"));
+  if (items.length > 0) {
+    items.forEach((curEl) => {
+      curEl.remove();
+    });
+    updateLocalStorage();
+  }
+};
+
 // Delete parent element function
 const deleteParent = function (el) {
   el.parentElement.remove();
@@ -204,13 +228,19 @@ const speak = function (msg) {
 };
 
 const clearLocalStorage = function () {
-  localStorage.removeItem("lista");
+  // Checking first if there is the key I am looking for, if so, continue
+  if (localStorage.getItem("lista") !== null) localStorage.removeItem("lista");
 };
 
+/* Here we are maintining the current data of the session by pushing the changes,
+ to our hard coded "data.listElements" array and setting it to localStorage,
+  after cleaning it up first
+*/
 const updateLocalStorage = function () {
   clearLocalStorage();
   const ulContainer = document.querySelector(".ulContainer");
   const items = ulContainer.getElementsByTagName("li");
+  // Clearing our current array so same data doesnt pile up again and again
   if (data.listElements.length > 0) data.listElements = [];
   for (var i = 0; i < items.length; ++i) {
     data.listElements.push(items[i].outerHTML);
