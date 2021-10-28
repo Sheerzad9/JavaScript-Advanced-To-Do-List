@@ -45,7 +45,7 @@ const updatePage = function () {
   newDiv.className = "header";
   //Creating some h2 text inside header
   const newH2El = document.createElement("h2");
-  const headerText = document.createTextNode("What should we do today");
+  const headerText = document.createTextNode("To Do List");
   newH2El.appendChild(headerText);
   newDiv.appendChild(newH2El);
   // Creating input field
@@ -167,9 +167,7 @@ const checkInput = function () {
     }. ${currentDate.getDate()}.${
       data.kuukaudet[currentDate.getMonth()]
     }.${currentDate.getFullYear()} <br> klo: ${currentDate.getHours()}.${
-      currentDate.getMinutes().length === 1
-        ? "0" + currentDate.getMinutes()
-        : currentDate.getMinutes()
+      (currentDate.getMinutes() < 10 ? "0" : "") + currentDate.getMinutes()
     } </p>
      </li>`;
 
@@ -228,12 +226,12 @@ const speak = function (msg) {
 };
 
 const clearLocalStorage = function () {
-  // Checking first if there is the key I am looking for, if so, continue
-  if (localStorage.getItem("lista") !== null) localStorage.removeItem("lista");
+  // Checking first if there is the key I am looking for, if so, clearing it
+  if (localStorage.getItem("lista") !== null) localStorage.lista = "";
 };
 
-/* Here we are maintining the current data of the session by pushing the changes,
- to our hard coded "data.listElements" array and setting it to localStorage,
+/* Maintining the current data of the session by pushing the changes,
+  to our hard coded "data.listElements" array and setting it to localStorage,
   after cleaning it up first
 */
 const updateLocalStorage = function () {
@@ -245,5 +243,5 @@ const updateLocalStorage = function () {
   for (var i = 0; i < items.length; ++i) {
     data.listElements.push(items[i].outerHTML);
   }
-  localStorage.setItem("lista", data.listElements);
+  localStorage.lista = data.listElements;
 };

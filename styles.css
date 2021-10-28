@@ -7,7 +7,7 @@
 h4 {
   margin: 0;
   font-size: 28px;
-  font-family: cursive;
+  font-family: "Impact,Charcoal,sans-serif";
   cursor: pointer;
 }
 body {
@@ -89,7 +89,7 @@ body {
 }
 
 .addBtn:hover {
-  background-color: rgb(78, 78, 67);
+  background-color: black;
   color: white;
   transition: 1s;
 }
@@ -123,6 +123,7 @@ body {
   text-align: center;
   list-style-type: none;
   background-color: rgb(195, 199, 196);
+  border-radius: 10px;
 }
 
 ul li {
