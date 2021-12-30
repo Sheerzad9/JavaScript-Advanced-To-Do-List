@@ -4,7 +4,7 @@ In this To-do application you can create your list of things to do and it will b
 All the To-do's will be shown in an list, with the date and time on which it was created, <br />
 * You can play your text outloud by clicking the speaker icon, <br />
 * You can overcheck the created To-do list values and aswell undo the overcheck. <br />
-* You can also permanently delete the ones you want. <br />
+* You can delete the ones you want. <br />
 
 All of these actions will be saved on the localstorage automatically.<br />
 so next time you come back it will be just the way you left it.<br />
